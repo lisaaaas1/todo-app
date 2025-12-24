@@ -1,7 +1,11 @@
 import React, {Component} from "react";
-import './app.css';
+
 import AppHeader from "../app-header";
 import SearchPanel from "../search-panel";
+import ItemStatusFilter from "../item-status-filter";
+import TodoList from "../todo-list";
+import ItemAddForm from "../item-add-form";
+import './app.css';
 
 export default class App extends Component {
     maxId = 100; // для записей в туду
@@ -124,9 +128,12 @@ export default class App extends Component {
         return(
             <div className= "todo-app">
                 <AppHeader todo={doneCount} done = {todoCount} />
-                <div className="search-panel d-flex" >
+                <div className="search-panel d-flex status-pink" >
                     <SearchPanel onSearchChange={this.onSearchChange}/>
+                    <ItemStatusFilter filter={filter} onFilterChange={this.onFilterChange}/>
                 </div>
+                <TodoList todos={visibleItems} onDelete={this.deleteItem} onToggleDone={this.onToggleDone} onToggleImportant={this.onToggleImportant} />
+                <ItemAddForm onItemAdded={this.addItem}/>
             </div>
         )
     }
